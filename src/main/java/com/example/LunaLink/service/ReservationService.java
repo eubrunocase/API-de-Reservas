@@ -21,11 +21,11 @@ public class ReservationService {
 
 
     public Reservation createReservation(Reservation reservation) {
-        // Verificar se o espaço existe e está disponível
+
         Space space = spaceRepository.findById(reservation.getSpace().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Espaço não encontrado"));
 
-        // Verificar se o espaço está disponível no horário solicitado
+
         boolean isAvailable = checkSpaceAvailability (
                 reservation.getSpace().getId(), reservation.getStartTime(), reservation.getEndTime()
         );
@@ -40,7 +40,7 @@ public class ReservationService {
         List<Reservation> conflictingReservations = reservationRepository
                 .findBySpaceIdAndTimeRange(spaceId, startTime, endTime);
 
-        return conflictingReservations.isEmpty();  // Verdadeiro se não houver conflitos
+        return conflictingReservations.isEmpty();
     }
 
     public List<Reservation> getReservationsBySpaceId(long spaceId) {

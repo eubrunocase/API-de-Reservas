@@ -11,7 +11,6 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findBySpaceId(Long spaceId);
 
-    // Encontra reservas que conflitam com o horário de uma nova reserva
     @Query("SELECT r FROM Reservation r WHERE r.space.id = :spaceId " +
             "AND (r.startTime < :endTime AND r.endTime > :startTime)")
     List<Reservation> findBySpaceIdAndTimeRange(@Param("spaceId") Long spaceId,

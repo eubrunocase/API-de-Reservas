@@ -18,7 +18,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users Users;
 
     @ManyToOne
     @JoinColumn(name = "space_id")

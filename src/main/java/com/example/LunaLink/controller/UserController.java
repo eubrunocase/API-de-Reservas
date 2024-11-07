@@ -1,30 +1,49 @@
 package com.example.LunaLink.controller;
-import com.example.LunaLink.model.User;
+import com.example.LunaLink.model.Users;
 import com.example.LunaLink.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    public ResponseEntity<Users> createUser(@RequestBody Users Users) {
+        Users savedUsers = userRepository.save(Users);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUsers);
     }
 
     @GetMapping
-    public List<User> getAllUsers () {
+    public List<Users> getAllUsers () {
         return userRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Users> getUsersById (@PathVariable long id) {
+        return userRepository.findById(id);
+    }
 
+    @DeleteMapping("{id}")
+    public void deleteUserById(@PathVariable long id) {
+        userRepository.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Users attUser (@PathVariable long id, @RequestBody Users users) {
+        users.setId(id);
+        return userRepository.save(users);
+    }
+
+    
 }
