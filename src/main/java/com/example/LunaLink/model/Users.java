@@ -7,10 +7,11 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @Entity
-public class User {
+public class person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
