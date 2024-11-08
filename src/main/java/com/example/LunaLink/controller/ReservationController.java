@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/reservations")
@@ -30,6 +31,11 @@ public class ReservationController {
     @GetMapping
      public List<Reservation> getAll () {
         return reservationRepository.findAll();
+     }
+
+     @GetMapping("/{id}")
+     public Optional<Reservation> getById (@PathVariable long id) {
+         return reservationRepository.findById(id);
      }
 
      @DeleteMapping("/{id}")

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+
     List<Reservation> findBySpaceId(Long spaceId);
 
     @Query("SELECT r FROM Reservation r WHERE r.space.id = :spaceId " +

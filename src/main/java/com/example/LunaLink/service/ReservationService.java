@@ -4,6 +4,7 @@ import com.example.LunaLink.model.Reservation;
 import com.example.LunaLink.model.Space;
 import com.example.LunaLink.repository.ReservationRepository;
 import com.example.LunaLink.repository.SpaceRepository;
+import com.example.LunaLink.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,12 @@ import java.util.List;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
-
+    private final UserRepository userRepository;
     private final SpaceRepository spaceRepository;
 
-    public ReservationService (ReservationRepository reservationRepository, SpaceRepository spaceRepository) {
+    public ReservationService (ReservationRepository reservationRepository, UserRepository userRepository, SpaceRepository spaceRepository) {
         this.reservationRepository = reservationRepository;
+        this.userRepository = userRepository;
         this.spaceRepository = spaceRepository;
     }
 
@@ -34,9 +36,11 @@ public class ReservationService {
 
         if (!isAvailable) {
             throw new IllegalArgumentException("O espaço já está reservado para o horário solicitado.");
+        } else {
+           return reservationRepository.save(reservation);
         }
-        return reservationRepository.save(reservation);
     }
+
 
     private boolean checkSpaceAvailability(Long spaceId, LocalDateTime startTime, LocalDateTime endTime) {
         List<Reservation> conflictingReservations = reservationRepository
