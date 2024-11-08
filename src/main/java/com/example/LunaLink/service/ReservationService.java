@@ -13,12 +13,14 @@ import java.util.List;
 @Service
 public class ReservationService {
 
-    @Autowired
-    private ReservationRepository reservationRepository;
+    private final ReservationRepository reservationRepository;
 
-    @Autowired
-    private SpaceRepository spaceRepository;
+    private final SpaceRepository spaceRepository;
 
+    public ReservationService (ReservationRepository reservationRepository, SpaceRepository spaceRepository) {
+        this.reservationRepository = reservationRepository;
+        this.spaceRepository = spaceRepository;
+    }
 
     public Reservation createReservation(Reservation reservation) {
 
@@ -42,6 +44,7 @@ public class ReservationService {
 
         return conflictingReservations.isEmpty();
     }
+
 
     public List<Reservation> getReservationsBySpaceId(long spaceId) {
         return reservationRepository.findBySpaceId(spaceId);

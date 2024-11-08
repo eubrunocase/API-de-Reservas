@@ -2,23 +2,23 @@ package com.example.LunaLink.controller;
 
 
 import com.example.LunaLink.model.Reservation;
+import com.example.LunaLink.repository.ReservationRepository;
 import com.example.LunaLink.service.ReservationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/reservations")
 public class ReservationController {
 
-
+    private final ReservationRepository reservationRepository;
     private final ReservationService reservationService;
 
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService, ReservationRepository reservationRepository) {
         this.reservationService = reservationService;
+        this.reservationRepository = reservationRepository;
     }
 
     @PostMapping
@@ -26,6 +26,21 @@ public class ReservationController {
         Reservation createdReservation = reservationService.createReservation(reservation);
         return ResponseEntity.ok(createdReservation);
     }
+
+    @GetMapping
+     public List<Reservation> getAll () {
+        return reservationRepository.findAll();
+     }
+
+     @DeleteMapping("/{id}")
+     public void DeleteById (@PathVariable long id) {
+        reservationRepository.deleteById(id);
+     }
+
+     @DeleteMapping
+     public void DeleteAll () {
+        reservationRepository.deleteAll();
+     }
 
 
 }
