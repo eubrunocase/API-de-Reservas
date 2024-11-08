@@ -9,6 +9,19 @@ Atualmente (07/11/2024) a API está em desenvolvimento, mas para aqueles que des
 de envio de requisições http(ex: postman) para conseguir enxergar os resultados. A api já conta com diversos endpoints funcionais, 
 sinta-se a vontade para testar!
 
+### EndPoints -> Todos os EndPoints listados abaixo suportam requisições HTTP dos tipos GET/POST/PUT/DELETE.
+ 1- api/reservaions 
+ 
+ 2- api/reservations/{id}
+ 
+ 3- api/space
+ 
+ 4- api/space/{id}
+ 
+ 5- api/users
+ 
+ 6- api/users/{id}
+
 ### Tecnologias:
 A api foi desenvolvida utilizando as tecnologias -> Java + SpringBoot + PostgresSQL.
 
